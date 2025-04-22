@@ -1,0 +1,11 @@
+<h1>Films</h1>
+
+<div id="films">
+  <% @films.each do |film| %>
+    <div>
+      <%= film.title %> <span><strong>by</strong></span> <%= film.director %> - <span><%= film.year %></span>
+    </div>
+    <img alt="" src=<%= film.img_url %>/>
+    <br>
+  <% end %>
+</div>
