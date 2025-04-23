@@ -1,11 +1,25 @@
-<h1>Films</h1>
-
-<div id="films">
-  <% @films.each do |film| %>
-    <div>
-      <%= film.title %> <span><strong>by</strong></span> <%= film.director %> - <span><%= film.year %></span>
-    </div>
-    <img alt="" src=<%= film.img_url %>/>
-    <br>
-  <% end %>
+<div data-controller="page-transition">
+  <h1 class="text-3xl font-bold" data-page-transition-target="title">Films</h1>
+  
+  <ul id="films" class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <% @films.each do |film| %>
+    <a
+        href="https://www.criterionchannel.com/<%= film.title.downcase.match?(/episode|part/) ? "videos/" : ""%><%= film.title
+        .downcase
+        .tr("’'", "-")
+        .gsub(/[;:().!]/, "")
+        .gsub(/\s+/, "-")
+        .gsub(/-+/, "-")
+        .gsub(/^-|-$/, "") %>"
+        target="_blank">
+      <li class="bg-white rounded-lg shadow p-6" data-page-transition-target="filmItem">
+        <h2 class="text-xl font-semibold"><%= film.title %></h2>
+        <p class="text-gray-600">Directed by: <%= film.director %></p>
+        <span class="text-gray-600"><%= film.year %></span>
+        <img alt="<%= film.title %>" src="<%= film.img_url %>"/>
+      </li>
+    </a>
+    <% end %>
+  </ul>
 </div>
+
