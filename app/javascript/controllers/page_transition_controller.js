@@ -13,11 +13,6 @@ export default class extends Controller {
 	}
 
 	prepareForAnimation() {
-		// Hide the title initially
-		if (this.hasTitleTarget) {
-			this.titleTarget.classList.add('opacity-0', 'translate-y-4');
-		}
-
 		// Hide each film item initially
 		this.filmItemTargets.forEach((item) => {
 			item.classList.add('opacity-0', 'translate-y-4');
