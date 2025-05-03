@@ -8,3 +8,8 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+body {
+	background-color: rgb(3, 2, 1);
+	color: rgb(255, 255, 255); /* Replace with your desired color */
+}

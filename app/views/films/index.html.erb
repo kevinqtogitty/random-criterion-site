@@ -1,32 +1,39 @@
 <div data-controller="page-transition" class="w-full h-full flex flex-col items-center justify-center">
-    <h1 class="text-3xl font-bold">Films (<%= @total_films %>)</h1>
-
     <%= form_tag films_path, method: :get do %>
-        <%= label_tag :count, "Number of films to show:" %>
-        <%= select_tag :count, 
-                    options_for_select([1, 3, 5, 10], @limit), 
-                    onchange: 'this.form.submit()' %>
+        <div class="w-full flex flex-col items-center justify-center gap-6">
+            <h1 class="text-3xl font-bold">Films (<%= @total_films %>)</h1>
+
+            <div class="flex items-center gap-4">
+                <%= label_tag :count, "Amount to show:" %>
+                <%= select_tag :count, 
+                            options_for_select([1, 3, 5, 10], @limit), 
+                            onchange: 'this.form.submit()' %>
+            </div>
+
+            <%= button_tag "Fetch More Films", type: :submit, name: nil, class: "mt-4 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer" %>
+        </div>
     <% end %>
 
     <ul id="films" class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    <% @films.each do |film| %>
-        <a
-            href="https://www.criterionchannel.com/<%= film.title.downcase.match?(/episode|part/) ? "videos/" : ""%><%= film.title
-            .downcase
-            .tr("’'", "-")
-            .gsub(/[;:().!]/, "")
-            .gsub(/\s+/, "-")
-            .gsub(/-+/, "-")
-            .gsub(/^-|-$/, "") %>"
-            target="_blank">
-            <li class="bg-white rounded-lg shadow p-6 flex flex-col items-center" data-page-transition-target="filmItem">
-                <img alt="<%= film.title %>" src="<%= film.img_url %>" class="mb-5"/>
-                <h2 class="text-xl font-semibold"><%= film.title %></h2>
-                <p class="text-gray-600"><%= film.director %></p>
-                <span class="text-gray-600"><%= film.year %></span>
-            </li>
-        </a>
-    <% end %>
+        <% @films.each do |film| %>
+            <a
+                href="https://www.criterionchannel.com/<%= film.title.downcase.match?(/episode|part|volume/) ? "videos/" : ""%><%= film.title
+                .downcase
+                .tr("’'", "-")
+                .gsub(/[;:()!]/, "")
+                .gsub(/[.,]/, "-")
+                .gsub(/\s+/, "-")
+                .gsub(/-+/, "-")
+                .gsub(/^-|-$/, "") %>"
+                target="_blank">
+                <li class="w-90 bg-slate-100 rounded-lg shadow p-6 flex flex-col items-center" data-page-transition-target="filmItem">
+                    <img alt="<%= film.title %>" src="<%= film.img_url %>" class="mb-5"/>
+                    <h2 class="text-xl font-semibold text-black"><%= film.title %></h2>
+                    <p class="text-gray-600"><%= film.director %></p>
+                    <span class="text-gray-600"><%= film.year %></span>
+                </li>
+            </a>
+        <% end %>
     </ul>
 </div>
 
