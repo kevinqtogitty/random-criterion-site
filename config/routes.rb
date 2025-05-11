@@ -13,4 +13,6 @@ Rails.application.routes.draw do
     # root "posts#index"
     get "/films", to: "films#index"
     get "/films/:id", to: "films#show"
+    get '/health', to: proc { [200, {}, ['ok']] }
+
 end
