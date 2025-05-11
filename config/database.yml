@@ -26,3 +26,7 @@ test:
 production:
   <<: *default
   database: Random Criterion
+
+  cable:
+    <<: *default
+    database: Random Criterion
